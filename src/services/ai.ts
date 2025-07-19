@@ -1,8 +1,8 @@
-import { pipeline, Pipeline } from '@xenova/transformers';
-
+// import { pipeline, Pipeline } from '@xenova/transformers';
+import { pipeline, type Text2TextGenerationPipeline } from '@xenova/transformers';
 class AIService {
   private static instance: AIService;
-  private generator: Pipeline | null = null;
+  private generator: Text2TextGenerationPipeline | null = null;
 
   private constructor() {}
 
