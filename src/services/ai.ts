@@ -1,5 +1,5 @@
 // import { pipeline, Pipeline } from '@xenova/transformers';
-import { pipeline, type Text2TextGenerationPipeline } from '@xenova/transformers';
+import { pipeline, type Text2TextGenerationPipeline, type Text2TextGenerationOutput } from '@xenova/transformers';
 class AIService {
   private static instance: AIService;
   private generator: Text2TextGenerationPipeline | null = null;
@@ -27,7 +27,8 @@ class AIService {
       max_new_tokens: 512,
       temperature: 0.7,
       repetition_penalty: 1.2,
-    });
+      return_full_text: true
+    }) as Text2TextGenerationOutput[];
 
     return result[0].generated_text;
   }
