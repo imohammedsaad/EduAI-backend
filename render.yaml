@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: eduai-backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: ALLOWED_ORIGINS
+        value: https://eduai.vercel.app
+    healthCheckPath: /health
+    autoDeploy: true
