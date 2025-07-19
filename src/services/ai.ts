@@ -19,19 +19,21 @@ class AIService {
     }
   }
 
-  public async generateText(prompt: string): Promise<string> {
-    await this.initializeGenerator();
-    if (!this.generator) throw new Error('Generator not initialized');
+public async generateText(prompt: string): Promise<string> {
+  await this.initializeGenerator();
+  if (!this.generator) throw new Error('Generator not initialized');
 
-    const result = await this.generator(prompt, {
-      max_new_tokens: 512,
-      temperature: 0.7,
-      repetition_penalty: 1.2,
-      return_full_text: true
-    }) as Text2TextGenerationOutput[];
+  const result = await this.generator(prompt, {
+    max_new_tokens: 512,
+    temperature: 0.7,
+    repetition_penalty: 1.2
+  });
 
-    return result[0].generated_text;
-  }
+  // Force result to be treated as array of objects with generated_text
+  const output = result as Array<{ generated_text: string }>;
+
+  return output[0].generated_text;
+}
 
   public async generateSummary(videoTranscript: string): Promise<string> {
     const prompt = `Create a comprehensive educational summary of this video transcript. Format the response as a JSON object with the following structure:
